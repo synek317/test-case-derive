@@ -20,32 +20,17 @@
 //! test-case-derive = "0.2.0"
 //! ```
 //!
-//! Additionally you have to enable `proc_macro` feature and include crate. You can do this globally by adding:
+//! Additionally you have to import the procedural macro with `use` statement:
 //!
-//! ```
-//! #![feature(proc_macro)]
-//! extern crate test_case_derive;
-//! ```
-//!
-//! to your `lib.rs` or `main.rs` file. Optionally you may enable proc macros only for tests:
-//!
-//! ```
-//! #![cfg_attr(test, feature(proc_macro))]
-//! #[cfg(test)]
-//! extern crate test_case_derive;
-//! ```
-//!
-//! Don't forget that procedural macros are imported with `use` statement:
-//!
-//! ```
+//! ```rust
 //! use test_case_derive::test_case;
 //! ```
 //!
+//! The crate depends on `proc_macro` feature that has been stabilized on rustc 1.29+.
+//!
 //! # Example usage:
 //!
-//! ```
-//! #![cfg(test)]
-//! #![feature(proc_macro)]
+//! ```rust
 //! extern crate test_case_derive;
 //!
 //! use test_case_derive::test_case;
@@ -62,7 +47,7 @@
 //!
 //! Output from `cargo test` for this example:
 //!
-//! ```
+//! ```sh
 //! $ cargo test
 //!
 //! running 3 tests
@@ -77,7 +62,7 @@
 //!
 //! If your only assertion is just `assert_eq!`, you can pass the expectation as macro attribute using `=>` syntax:
 //!
-//! ```
+//! ```rust
 //! #[test_case( 2 => 2 :: "returns given number for positive input")]
 //! #[test_case(-2 => 2 :: "returns opposite number for non-positive input")]
 //! #[test_case( 0 => 0 :: "returns 0 for 0")]
@@ -88,7 +73,7 @@
 //!
 //! Which is equivalent to
 //!
-//! ```
+//! ```rust
 //! #[test_case( 2, 2 :: "returns given number for positive input")]
 //! #[test_case(-2, 2 :: "returns opposite number for non-positive input")]
 //! #[test_case( 0, 0 :: "returns 0 for 0")]
@@ -101,7 +86,7 @@
 //!
 //! Attributes and expectation may be any expresion unless they contain `=>`, e.g.
 //!
-//! ```
+//! ```rust
 //! #[test_case(None,        None    => 0 :: "treats none as 0")]
 //! #[test_case(Some(2),     Some(3) => 5)]
 //! #[test_case(Some(2 + 3), Some(4) => 2 + 3 + 4)]
@@ -116,7 +101,7 @@
 //!
 //! Example generated code:
 //!
-//! ```
+//! ```rust
 //! mod fancy_addition {
 //!     #[allow(unused_imports)]
 //!     use super::*;
@@ -155,7 +140,7 @@
 //!
 //! If test case name (passed using `::` syntax described above) contains word "inconclusive", generated test will be marked with `#[ignore]`.
 //!
-//! ```
+//! ```rust
 //! #[test_case("42")]
 //! #[test_case("XX" :: "inconclusive - parsing letters temporarily doesn't work but it's ok")]
 //! fn parses_input(input: &str) {
@@ -164,7 +149,7 @@
 //! ```
 //!
 //! Generated code:
-//! ```
+//! ```rust
 //! mod parses_input {
 //!     // ...
 //!
@@ -210,8 +195,6 @@
 //! LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 //! OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 //! SOFTWARE.
-
-#![feature(proc_macro)]
 
 #[macro_use]
 extern crate lazy_static;

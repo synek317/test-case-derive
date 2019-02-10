@@ -1,6 +1,3 @@
-#![cfg(test)]
-#![feature(proc_macro)]
-
 extern crate test_case_derive;
 
 mod test_cases {
