@@ -63,6 +63,7 @@
 //! If your only assertion is just `assert_eq!`, you can pass the expectation as macro attribute using `=>` syntax:
 //!
 //! ```rust
+//! # use test_case_derive::test_case;
 //! #[test_case( 2 => 2 :: "returns given number for positive input")]
 //! #[test_case(-2 => 2 :: "returns opposite number for non-positive input")]
 //! #[test_case( 0 => 0 :: "returns 0 for 0")]
@@ -74,6 +75,7 @@
 //! Which is equivalent to
 //!
 //! ```rust
+//! # use test_case_derive::test_case;
 //! #[test_case( 2, 2 :: "returns given number for positive input")]
 //! #[test_case(-2, 2 :: "returns opposite number for non-positive input")]
 //! #[test_case( 0, 0 :: "returns 0 for 0")]
@@ -87,6 +89,7 @@
 //! Attributes and expectation may be any expresion unless they contain `=>`, e.g.
 //!
 //! ```rust
+//! # use test_case_derive::test_case;
 //! #[test_case(None,        None    => 0 :: "treats none as 0")]
 //! #[test_case(Some(2),     Some(3) => 5)]
 //! #[test_case(Some(2 + 3), Some(4) => 2 + 3 + 4)]
@@ -141,6 +144,7 @@
 //! If test case name (passed using `::` syntax described above) contains word "inconclusive", generated test will be marked with `#[ignore]`.
 //!
 //! ```rust
+//! # use test_case_derive::test_case;
 //! #[test_case("42")]
 //! #[test_case("XX" :: "inconclusive - parsing letters temporarily doesn't work but it's ok")]
 //! fn parses_input(input: &str) {
@@ -149,7 +153,7 @@
 //! ```
 //!
 //! Generated code:
-//! ```rust
+//! ```ignore
 //! mod parses_input {
 //!     // ...
 //!
@@ -226,6 +230,7 @@ use prelude::*;
 /// - Without result and name
 ///
 /// ```
+/// # use test_case_derive::test_case;
 /// #[test_case(5)]
 /// #[test_case(10)]
 /// fn is_positive(x: i8) {
@@ -236,6 +241,7 @@ use prelude::*;
 /// - With name, without result
 ///
 /// ```
+/// # use test_case_derive::test_case;
 /// #[test_case(1   :: "little number")]
 /// #[test_case(100 :: "big number")]
 /// #[test_case(5)] // some tests may use default name generated from arguments list
@@ -247,6 +253,7 @@ use prelude::*;
 /// - With result, without name
 ///
 /// ```
+/// # use test_case_derive::test_case;
 /// #[test_case(1,   2 =>  3)]
 /// #[test_case(-1, -2 => -3)]
 /// fn addition(x: i8, y: i8) -> i8 {
@@ -257,6 +264,7 @@ use prelude::*;
 /// - With result and name
 ///
 /// ```
+/// # use test_case_derive::test_case;
 /// #[test_case(1,   2 =>  3 :: "both numbers possitive")]
 /// #[test_case(-1, -2 => -3 :: "both numbers negative")]
 /// fn addition(x: i8, y: i8) -> i8 {

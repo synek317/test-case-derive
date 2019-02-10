@@ -16,7 +16,6 @@ travis-ci = { repository = "synek317/test-case-derive", branch = "master" }
 maintenance = { status = "actively-developed" }
 
 [lib]
-doctest = false
 proc-macro = true
 path = "src/lib.rs"
 
