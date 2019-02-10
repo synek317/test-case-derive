@@ -3,7 +3,7 @@ use prelude::*;
 pub fn escape_ident<S: AsRef<str>>(raw: S) -> Token {
     let mut escaped = escape_chars(raw);
 
-    escaped.trim_right_matches('_');
+    let _ = escaped.trim_end_matches('_');
 
     if escaped.is_rust_keyword() || escaped.starts_with(is_digit) {
         escaped = "_".to_string() + &escaped
