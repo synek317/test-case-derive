@@ -1,3 +1,11 @@
+# This crate is deprecated. Please use instead [test-case](https://github.com/frondeus/test-case)
+    
+Test-case-derive has a couple of issues which I could not clean up due to lack of time. Fortunately, [@frondeus](https://github.com/frondeus) forked it and resolved all of them. The most important differences:
+1) The name does not contain missleading `derive` anymore. When I've created this crate, I didn't understand proc macros enough and added this unfortunate suffix without any real reason
+2) It uses way newer syn and it does not work directly on tokens anymore
+3) The syntax is slightly changed, `::` is not in use anymore. Instead, `;` delimits test case name now
+4) It is possible to add attributes to your test cases, e.g. `#[should_panic]` or `#[ignore]`
+
 # Overview
 This crate provides `#[test_case]` procedural macro attribute that generates multiple parametrized tests using one body with different input parameters.
 A test is generated for each data set passed in `test_case` attribute.
